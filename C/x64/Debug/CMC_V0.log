@@ -1,0 +1,8 @@
+﻿  CMC_V0.cpp
+L:\CMC_C_R_code\CMC_V0.3.2\CMC_V0.cpp(321,19): warning C4018: '<': signed/unsigned mismatch
+L:\CMC_C_R_code\CMC_V0.3.2\CMC_V0.cpp(327,26): warning C4018: '<': signed/unsigned mismatch
+L:\CMC_C_R_code\CMC_V0.3.2\CMC_V0.cpp(335,23): warning C4018: '<': signed/unsigned mismatch
+L:\CMC_C_R_code\CMC_V0.3.2\CMC_V0.cpp(497,62): warning C4018: '<': signed/unsigned mismatch
+L:\CMC_C_R_code\CMC_V0.3.2\CMC_V0.cpp(502,33): warning C4018: '<': signed/unsigned mismatch
+L:\CMC_C_R_code\CMC_V0.3.2\CMC_V0.cpp(527,34): warning C4018: '<': signed/unsigned mismatch
+  CMC_V0.vcxproj -> L:\CMC_C_R_code\CMC_V0.3.2\x64\Debug\CMC_V0.exe
