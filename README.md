@@ -111,11 +111,11 @@ head(result,15)
 </p>
 
 
-
+<!--
 # Cite
 
 ...
-
+-->
 
 
 # Reference
