@@ -1,17 +1,50 @@
 
-# What is TySim?
+# Overview
 
-TySim is a quantitative metric of single-cell-to-target-cell-type similarity, on the basis of scRNA-seq data and the signatures or differentially expressed gene (DEG) list of the target cell type. In other words, it quantifies to what level each single cell is similar to the target cell type.
+The raw count of single-cell RNA-seq (scRNA-seq) data impacted by artificial factors, including the cell factor and the gene factor. Besides, we found that, for full-length sequencing techniques, such as Smart-seq2, the cDNA-length factor also has a non-negligible impact on the final raw counts. 
 
-<!-- If you have any feedback or issue, you are welcome to either post issue in the Issues section or send an email to yug@vt.edu (Guoqiang Yu at Virginia Tech). -->
+The CMC model was applied to jointly infer these three factors and then to normalize out the unwanted factors.
 
-<!--  ### Overview of TySim -->
+
+# Cell/gene/cDNA-length factors
+Cell factors: (such as cell’s library size that will directly impact the total counts of the cell)
+
+Gene factors: (such as GC content of the gene’s sequence that may impact the efficiency of PCR amplification)
+
+cDNA-length factor:
+
+
+
+The raw count of single-cell RNA-seq (scRNA-seq) data impacted by artificial factors, including the cell factor (such as cell’s library size that will directly impact the total counts of the cell) and the gene factor (such as GC content of the gene’s sequence that may impact the efficiency of PCR amplification). 
+
+Besides, we found that, for full-length sequencing techniques, such as Smart-seq2, the cDNA-length factor also has a non-negligible impact on the final raw counts. 
+
+
 <p align="center">
-  <img src="img/Fig_Introduction.png" alt="Alt Text" style="width:75%;">
-  <!--  <figcaption>Overview of TySim</figcaption> -->
+  <img src="img/Fig_Normalization_cDNALength.png" alt="Alt Text" style="width:100%;">
 </p>
 
 
+# What if we consider these factors separately?
+Illustrated example of consider cell and gene factors separately vs jointly.
+
+<p align="center">
+  <img src="img/Necessity_of_considering_all_factors_normalization.png" alt="Alt Text" style="width:100%;">
+</p>
+
+# Results on example scRNA-seq data [3]
+
+<p align="center">
+  <img src="img/Fig_Normalization_CompareWithTC.png" alt="Alt Text" style="width:90%;">
+</p>
+
+
+<p align="center">
+  <img src="img/Fig_Normalization_CompareWithOthers.png" alt="Alt Text" style="width:90%;">
+</p>
+
+
+<!--
 # How it work?
 
 **Input**: (1) scRNA-seq data to be tested; (2) Signatures of target cell type. <br>
@@ -19,24 +52,9 @@ TySim is a quantitative metric of single-cell-to-target-cell-type similarity, on
 
 A cell is believed to be similar to a target cell type at the transcriptional level if it statistically significantly highly expresses the signatures of the target cell type than expected by random. Given the inputs, TySim performs statistical test to access the similarity levels.
 
-# Why TySim?
-
-To the best of our knowledge, TySim is the first quantitative metric of similarity towards a target cell type.
-
-### Features of TySim:
-
-1) **Single-cell resolution**: TySim quantities the similarity level of each single cell to a given cell type. Working on single cells also means that TySim does not require clustering and are free of the headaches in clustering, e.g. tiny cell group or inseparable groups. 
-
-2) **Cross platform**: insensitive to the sequencing platform of input scRNA-seq dataset and the platform from which the signatures of target cell types coming.
-
-### TySim is powerful in a few aspects:
-
-1) Special designed to handle the drop-out effect in scRNA-seq datasets.
-
-2) TySim carefully considers the background expression level of each gene in each cell. Such background expression levels are accurately estimated by systematically modeling both cell factors and gene factors in the inputted scRNA-seq data. This is achieved by employing the Conditional Multifactorial Contingency (CMC) model.
 
 
-# Case studies using TySim
+# Case studies
 ### 1) TySim confirms that Proliferative-region-associated microglia (PAM) is similar to disease-associated microglia (DAM) 
 
 <br>
@@ -44,17 +62,14 @@ To the best of our knowledge, TySim is the first quantitative metric of similari
 
 <p align="center">
   <img src="img/Fig_CaseStudy_PAMtoDAM.png" alt="Alt Text" style="width:100%;">
-  <!--  <figcaption>Overview of TySim</figcaption> -->
 </p>
 
-<!--   <div style="height: 10px;"></div> -->
 
 ### 2) TySim reveals cell type neglected by clustering due to small group size 
 
 <br>
 <p align="center">
   <img src="img/Fig_CaseStudy_Ms4a7_like_cells.png" alt="Alt Text" style="width:100%;">
-  <!--  <figcaption>Overview of TySim</figcaption> -->
 </p>
 
 <div style="height: 5px;"></div>
@@ -64,7 +79,6 @@ To the best of our knowledge, TySim is the first quantitative metric of similari
 <br>
 <p align="center">
   <img src="img/Fig_CaseStudy_COP_2.png" alt="Alt Text" style="width:85%;">
-  <!--  <figcaption>Overview of TySim</figcaption> -->
 </p>
 
 <div style="height: 5px;"></div>
@@ -75,7 +89,7 @@ To the best of our knowledge, TySim is the first quantitative metric of similari
 
 ```
 library(devtools)
-devtools::install_github("yu-lab-vt/CMC@CMC-TySim")
+devtools::install_github("ZuolinCheng/TySim")
 ```
 
 # Example usage
@@ -92,10 +106,10 @@ library(TySim)
 ```Similarity_analysis_example <- Read_Target_Genes(Similarity_analysis_example, "Signatures_target cell_type.txt")```
 
 \# Run CMC Model
-```Similarity_analysis_example <- Run_CMC(Similarity_analysis_example)``` 
+Similarity_analysis_example <- Run_CMC(Similarity_analysis_example) 
 
 \# Calculate Similarity Scores<br>
-```Similarity_analysis_example <- TySim(Similarity_analysis_example)```
+```Similarity_analysis_example <- Similarity_Scores(Similarity_analysis_example)```
 
 
 You may also want to attached the similarity scores to Seurat Object, so as to analysis the similarity scores together with Seurat's current results (e.g., visualizing the similarity scores in UMAP/tSNE plot)
@@ -128,7 +142,6 @@ FeaturePlot(Seurat_Example, features = c("Similarity_Adjusted_Z_Score"), pt.size
 
 
 
-
 # Cite
 
 Please cite our paper if you find the code useful for your research.
@@ -146,7 +159,7 @@ Z. Cheng, S. Wei and G. Yu, "[A Single-Cell-Resolution Quantitative Metric of Si
   organization={IEEE}
 }
 ```
-
+-->
 
 
 # Reference
