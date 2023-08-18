@@ -75,7 +75,7 @@ To the best of our knowledge, TySim is the first quantitative metric of similari
 
 ```
 library(devtools)
-devtools::install_github("ZuolinCheng/TySim")
+devtools::install_github("yu-lab-vt/CMC@CMC-TySim")
 ```
 
 # Example usage
@@ -91,11 +91,11 @@ library(TySim)
 \# Read signatures of target cell type<br>
 ```Similarity_analysis_example <- Read_Target_Genes(Similarity_analysis_example, "Signatures_target cell_type.txt")```
 
-<!--\# Run CMC Model
-Similarity_analysis_example <- Run_CMC(Similarity_analysis_example) -->
+\# Run CMC Model
+```Similarity_analysis_example <- Run_CMC(Similarity_analysis_example)``` 
 
 \# Calculate Similarity Scores<br>
-```Similarity_analysis_example <- Similarity_Scores(Similarity_analysis_example)```
+```Similarity_analysis_example <- TySim(Similarity_analysis_example)```
 
 
 You may also want to attached the similarity scores to Seurat Object, so as to analysis the similarity scores together with Seurat's current results (e.g., visualizing the similarity scores in UMAP/tSNE plot)
@@ -124,6 +124,7 @@ DimPlot(Seurat_Example, reduction = "umap", pt.size = 1)
 FeaturePlot(Seurat_Example, features = c("Similarity_Minus_log10_p_Value"), pt.size = 1)
 FeaturePlot(Seurat_Example, features = c("Similarity_Adjusted_Z_Score"), pt.size = 1)
 ```
+
 
 
 
