@@ -1,81 +1,41 @@
 
-# What is driving TF identification?
+# What is GO term activity transformation?
 
-Driving TF identification is to identify the transportation factors (TFs) that are responsible for the transcription change of biological processes or diseases. Our method systematically models both the gene and TF heterogeneity in binding affinities, and achieves a more powerful detection results.
+It's a model to transform the scRNA-seq dataset into GO term activity score. Compare with the scRNA-seq dataset, which represents the expression level of each single gene in each cell, the GO term activity score matrix represents the activity level of each GO term (i.e., biological process) in each cell. 
+
 
 
 <!-- If you have any feedback or issue, you are welcome to either post issue in the Issues section or send an email to yug@vt.edu (Guoqiang Yu at Virginia Tech). -->
 
 <!--  ### Overview of TySim -->
 <p align="center">
-  <img src="img/Fig_DrivingTF_Introduction.png" alt="Alt Text" style="width:80%;">
+  <img src="img/Fig_GO_Introduction.png" alt="Alt Text" style="width:100%;">
   <!--  <figcaption>Overview of TySim</figcaption> -->
 </p>
 
 
-**Input**: a set of co-expressed genes (e.g., DEGs) of interest <br>
-**Output**: Driving TF candidates
+# Why do we need the transformation?
 
-**Basic idea of identification:** TFs initiate and regulate the transcription of genes by binding to the enhancer or promoter sequences of their target genes. The basic idea behind the identification is to identify the TFs that bind to the co-expression genes more frequently than they would be at random.
+### scRNA-seq:
+* Highly noisy
+* Suffered from the drop-out effect
 
-# Gene/TF heterogeneity in binding affinity
+Limit its power in the cell heterogeneity analyses
 
-Each TF or gene has different binding affinities (i.e., how likely a TF tends to bind any gene, or how likely a gene is bound by any TF). 
-
-What's more, binding affinity of gene/TF are various and are cell type specific.
-
-<p align="center">
-  <img src="img/Fig_DrivingTF_bindingAffinity_cellType.png" alt="Alt Text" style="width:80%;">
-  <!--  <figcaption>Overview of TySim</figcaption> -->
-</p>
+### GO term activity score
+* **More reliable**: the GO term activity score is account for the expressions of multiple functional related genes
+* **More sensitive to cell heterogeneity**: the gene-level expression bias can be modeled and captured by our CMC model, such that genes expressed homogeneously in the cell population will have less contribution to the final activity scores.
 
 
-
-
-# What if ignore the heterogeneities ?
-
-* Overlooks the evidence from important genes and TFs
-* Falls in the traps of irrelevant genes and TFs
-* **Results in false negatives and false positives**
-
-<p align="center">
-  <img src="img/Fig_DrivingTF_NecessityOfModelAllfctors.png" alt="Alt Text" style="width:100%;">
-  <!--  <figcaption>Overview of TySim</figcaption> -->
-</p>
-
-
-# Overview of our model
+# Case study using GO term activity transformation
+### Application to a real dataset that contained homeostatic microglia and Proliferative-region-associated microglia (PAM) [1] 
+<br>
 
 
 <p align="center">
-  <img src="img/Fig_DrivingTF_model.png" alt="Alt Text" style="width:75%;">
-  <!--  <figcaption>Overview of TySim</figcaption> -->
+  <img src="img/Fig_CaseStudy_PAM.png" alt="Alt Text" style="width:70%;">
 </p>
 
-
-## Highlights 
-
-* **Both gene binding affinities and TF binding affinities** are systematically modeled via our Conditional Multifactorial Contingency (CMC) model
-* The heterogeneity of binding affinities among **cell types** is also carefully considered
-* Saddle point approximation makes **high-resolution statistical test** (imbedding various binding affinities) possible
-* **Robust build-in TF-gene binding state databases**: ChIP-seq experiments + motif evidence
-
-
-# Results on 49 benchmark datasets [1] 
-In each dataset, targeted TF was perturbed and DEGs were detected. We feed the DEGs to the model and check if the perturbed TF was successfully identified.
-
-
-<p align="center">
-  <img src="img/Fig_DrivingTF_result_benchmarks.png" alt="Alt Text" style="width:88%;">
-  <!--  <figcaption>Overview of TySim</figcaption> -->
-</p>
-
-
-### Result on an example benchmark dataset
-<p align="center">
-  <img src="img/Fig_DrivingTF_result_example_benchmark.png" alt="Alt Text" style="width:60%;">
-  <!--  <figcaption>Overview of TySim</figcaption> -->
-</p>
 
 
 
@@ -83,32 +43,77 @@ In each dataset, targeted TF was perturbed and DEGs were detected. We feed the D
 
 ```
 library(devtools)
-devtools::install_github("yu-lab-vt/CMC@CMC-DrivingTFDetection")
+devtools::install_github("yu-lab-vt/CMC@CMC-GOTermActivity")
 ```
+
 
 # Example usage
 
-library(DrivingTFDetection)
-
-
-\# Get example DEG list (obtained by comparing the gene expression levels in mouse with MYOD1 mutated v.s. wide type [3])
 ```
-DEGs_example_MYOD1 <- getTestGeneSet()
+library(Gotana)
+library(Seurat)
+library(matrixStats)
 ```
 
-\# Driving TF factor identification 
+``` 
+# Read Raw count
+GO_analysis_example <- Read_scData("GE_Data.txt", Str_mt = "mt-")
 ```
-result<-DrivingTFDetection_ChIPseq_Mouse(DEGs_example_MYOD1)
 ```
+# Quality Control
+GO_analysis_example <- QC_scData(GO_analysis_example, Gene_threshold = 0.05,
+                                 Count_threshold = 3.5, Cell_threshold = 1500, MT_threshold = 0.2)
+```
+```
+# Map to GO Term Dataset
+GO_analysis_example <- Map_GOSet(GO_analysis_example)
 
-\# Example output
+# Run CMC Model
+GO_analysis_example <- Run_CMC(GO_analysis_example)
+
+# Calculate GO Term Activity Scores
+GO_analysis_example <- GO_Scores(GO_analysis_example)
+
+# Feature Selection: Using Order Statistics Tests
+GO_analysis_example <- GO_selected_Order_Statistics(GO_analysis_example)
+
+# Run PCA
+GO_analysis_example <- Run_PCA(GO_analysis_example, Selected_GOs = 255, Score_type = "p_value")
+
+# Build Seurat Object
+GO_analysis_example <- Create_Seurat_Object(GO_analysis_example)
+
+#Analysis using "Seurat" function
+Seurat_GO_example <- GO_analysis_example$Seurat_GO
+
+DimHeatmap(Seurat_GO_example, dims = 1, cells = 1000, balanced = TRUE)
+
+Seurat_GO_example <- FindNeighbors(Seurat_GO_example, dims = 1:10)
+
+Seurat_GO_example <- FindClusters(Seurat_GO_example, resolution = 0.5)
+
+Seurat_GO_example <- RunUMAP(Seurat_GO_example, dims = 1:10)
+
+DimPlot(Seurat_GO_example, reduction = "umap", pt.size = 1)
+
+FeaturePlot(Seurat_GO_example, features = c("GO:0010976","GO:0016126", "GO:0006695", "GO:0006357"), pt.size = 1)
+
+cluster2.markers <- FindMarkers(Seurat_GO_example, ident.1 = 2, min.pct = 0.25)
+
+# For Further Analysis
+GO_analysis_example <- Update_Seurate(GO_analysis_example, Seurat_GO_example)
+
+# Detect DEGs
+Cluster_Results <- GO_analysis_example$AfterMapping_List$Cluster
+Cluster_0 <- GO_analysis_example$AfterQC_List$Cell_ID[Cluster_Results == '0']
+Cluster_1 <- GO_analysis_example$AfterQC_List$Cell_ID[Cluster_Results == '1']
+Cluster_2 <- GO_analysis_example$AfterQC_List$Cell_ID[Cluster_Results == '2']
+Markers_Cluster0 <- Markers_Detection(GO_analysis_example, Cluster_0, c(Cluster_1,Cluster_2), 
+                                      Flag_testAllgene = FALSE, min.pct = 0.1, logfc.threshold = 0.25, only.pos = TRUE)
+
+# Plot Gene Expression Figure
+GenePlot(GO_analysis_example, Gene_list = c("C1ql1", "Tmsb4x", "Ppp1r14b", "Rpl13"), Pt_size = 0.75)
 ```
-head(result,15)
-```
-<p align="left">
-  <img src="img/Fig_DrivingTF_code_exampleOutput.png" alt="Alt Text" style="width:50%;">
-  <!--  <figcaption>Overview of TySim</figcaption> -->
-</p>
 
 
 <!--
@@ -119,10 +124,4 @@ head(result,15)
 
 
 # Reference
-[1]	Qin, Qian, et al. "Lisa: inferring transcriptional regulators through integrative modeling of public chromatin accessibility and ChIP-seq data." Genome biology 21.1 (2020): 1-14.
-
-[2] Puig, Rafael Riudavets, et al. "UniBind: maps of high-confidence direct TF-DNA interactions across nine species." BMC genomics 22.1 (2021): 1-17.
-
-[3] Di Padova, Monica, et al. "MyoD acetylation influences temporal patterns of skeletal muscle gene expression." Journal of Biological Chemistry 282.52 (2007): 37650-37659.
-
-
+[1]	Q. Li, Z. Cheng, L. Zhou, S. Darmanis, N. F. Neff, J. Okamoto et al., “Developmental heterogeneity of microglia and brain myeloid cells revealed by deep single-cell RNA sequencing,” Neuron, vol. 101, no. 2, pp. 207-223. e10, 2019.
