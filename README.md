@@ -146,7 +146,7 @@ In this application, the CMC model is used to accurately estimate the gene-level
 </p>
 
 
-
+<!--
 # Installation
 
 ==== R ====
@@ -154,6 +154,8 @@ In this application, the CMC model is used to accurately estimate the gene-level
 library(devtools)
 devtools::install_github("yu-lab-vt/CMC")
 ```
+-->
+
 <!--
 # Example usage
 
