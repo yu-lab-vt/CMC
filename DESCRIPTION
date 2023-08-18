@@ -1,0 +1,14 @@
+Package: TySim
+Type: Package
+Title: TySim
+Version: 0.1.0
+Date: 2023-06-12
+Authors@R:
+    person("Cheng", "Zuolin", email = "zuolin8@vt.edu", role = c("aut", "cre"))
+    person("Wei", "Songtao", email = "songtaow@vt.edu", role = c("aut", "cre"))
+Description: This package is to perform similarity scores analysis based on the CMC model.
+License: VT
+Encoding: UTF-8
+Imports: Rcpp (>= 1.0.10)
+LinkingTo: Rcpp
+RoxygenNote: 7.2.3
