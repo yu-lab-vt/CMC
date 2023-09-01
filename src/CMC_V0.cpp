@@ -561,17 +561,17 @@ void f_df(double* f, double* df, double r_try, double** r_Part, const uint nDim_
 
     int iDim = 0;
     volatile char iExcess = 0;
-    register double A = 0, dA = 0;
-    register double prod_p = 1.0, prod = 1.0, prod_add1 = 1.0, inv_Prod_add1 = 1.0;
-    register uint y = 1;
-    register unsigned long long int idxTmp = 1;
+    double A = 0, dA = 0;
+    double prod_p = 1.0, prod = 1.0, prod_add1 = 1.0, inv_Prod_add1 = 1.0;
+    uint y = 1;
+    unsigned long long int idxTmp = 1;
     unsigned long long int nNonMiss = 0;
-    register int flag_INF = 0;
+    int flag_INF = 0;
 
     //Index_HD idx_Part(nDim_Part, M_Part);
     //idx_Part.reset();
 
-    register int idx_Part[MAX_DIM] = { 0 };
+    int idx_Part[MAX_DIM] = { 0 };
 
     iExcess = 0;
     while (iExcess == 0) {

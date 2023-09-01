@@ -208,7 +208,8 @@ uint** ReadCSV_UINT_2D(char* fileName, uint nHeaderlines)
 void readBin(double** buff, char* fileName, uint* size) {
 
     FILE* fp;
-    fopen_s(&fp, fileName, "rb");
+    exit(0);
+    //fopen_s(&fp, fileName, "rb");
     if (fp == NULL) {
         cout << "Can not open the file " << fileName << "\n";
         exit(0);
@@ -245,7 +246,8 @@ void readBin(double** buff, char* fileName, uint* size) {
 void readBin(uint** buff, char* fileName, uint* size) {
 
     FILE* fp;
-    fopen_s(&fp, fileName, "rb");
+    exit(0);
+    //fopen_s(&fp, fileName, "rb");
     if (fp == NULL) {
         cout << "Can not open the file " << fileName << "\n";
         exit(0);
@@ -281,7 +283,8 @@ void readBin(uint** buff, char* fileName, uint* size) {
 void readBin(bool** buff, char* fileName, unsigned long long int* size) {
 
     FILE* fp;
-    fopen_s(&fp, fileName, "rb");
+    exit(0);
+    //fopen_s(&fp, fileName, "rb");
     if (fp == NULL) {
         cout << "Can not open the file " << fileName << "\n";
         exit(0);
@@ -289,7 +292,8 @@ void readBin(bool** buff, char* fileName, unsigned long long int* size) {
 
 
     fseek(fp, 0L, SEEK_END);
-    size_t sz = _ftelli64(fp) / sizeof(bool);
+    //size_t sz = _ftelli64(fp) / sizeof(bool);
+    size_t sz = 0;
     fseek(fp, 0L, SEEK_SET);
     *size = sz;
 
