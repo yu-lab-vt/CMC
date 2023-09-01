@@ -292,7 +292,8 @@ void readBin(bool** buff, char* fileName, unsigned long long int* size) {
 
 
     fseek(fp, 0L, SEEK_END);
-    size_t sz = _ftelli64(fp) / sizeof(bool);
+    //size_t sz = _ftelli64(fp) / sizeof(bool);
+    size_t sz = 0;
     fseek(fp, 0L, SEEK_SET);
     *size = sz;
 
