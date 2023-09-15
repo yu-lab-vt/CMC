@@ -44,6 +44,26 @@ Illustrated example of consider cell and gene factors separately vs jointly.
 </p>
 
 
+
+
+# Installation
+
+```
+library(devtools)
+devtools::install_github("yu-lab-vt/CMC@CMC-3DNorm")
+```
+
+# Example usage
+
+```
+library(scNorm3D)
+#file_Exp:a csv file name that stored the raw count of scRNA-seq data (row:sample; col:gene)
+#file_cDNA_Length:a csv file name that stored the cDNA lengthes of each gene in each cell (row:sample; col:gene)
+dataNorm <- scNorm3D(file\_Exp, file\_cDNA\_Length)
+```
+
+
+
 <!--
 # How it work?
 
@@ -85,59 +105,6 @@ A cell is believed to be similar to a target cell type at the transcriptional le
 
 
 
-# Installation
-
-```
-library(devtools)
-devtools::install_github("ZuolinCheng/TySim")
-```
-
-# Example usage
-
-library(TySim)
-
-\# Read Original Data (Data: https://www.science.org/doi/10.1126/science.aaf6463?siteid=sci&keytype=ref&ijkey=dfIFbyl10QkCA)<br>
-```Similarity_analysis_example <- Read_scData("GSE75330_Marques_et_al_mol_counts2.tab", Str_mt = "mt-")```
-
-\# Quality Control<br>
-```Similarity_analysis_example <- QC_scData(Similarity_analysis_example, Gene_threshold =0.05,Count_threshold = 3, Cell_threshold = 1400, MT_threshold = 0.05)```
-
-\# Read signatures of target cell type<br>
-```Similarity_analysis_example <- Read_Target_Genes(Similarity_analysis_example, "Signatures_target cell_type.txt")```
-
-\# Run CMC Model
-Similarity_analysis_example <- Run_CMC(Similarity_analysis_example) 
-
-\# Calculate Similarity Scores<br>
-```Similarity_analysis_example <- Similarity_Scores(Similarity_analysis_example)```
-
-
-You may also want to attached the similarity scores to Seurat Object, so as to analysis the similarity scores together with Seurat's current results (e.g., visualizing the similarity scores in UMAP/tSNE plot)
-
-\# Build Seurat Object<br>
-```library(Seurat)```<br>
-```Similarity_analysis_example <- Create_Seurat_Object(Similarity_analysis_example)```
-
-\#Analysis using "Seurat" package
-```
-Seurat_Example <- Similarity_analysis_example$Seurat_Object
-Seurat_Example <- NormalizeData(Seurat_Example, normalization.method = "LogNormalize", scale.factor = 10000)
-Seurat_Example <- FindVariableFeatures(Seurat_Example, selection.method = "vst", nfeatures = 4000)
-all.genes <- rownames(Seurat_Example)
-Seurat_Example <- ScaleData(Seurat_Example, features = all.genes)
-Seurat_Example <- RunPCA(Seurat_Example, features = VariableFeatures(object = Seurat_Example))
-ElbowPlot(Seurat_Example)
-Seurat_Example <- FindNeighbors(Seurat_Example, dims = 1:20)
-Seurat_Example <- FindClusters(Seurat_Example, resolution = 0.5)
-Seurat_Example <- RunUMAP(Seurat_Example, dims = 1:20)
-DimPlot(Seurat_Example, reduction = "umap", pt.size = 1)
-```
-
-\# Visualize Similarity Scores Using UMAP Result<br>
-```
-FeaturePlot(Seurat_Example, features = c("Similarity_Minus_log10_p_Value"), pt.size = 1)
-FeaturePlot(Seurat_Example, features = c("Similarity_Adjusted_Z_Score"), pt.size = 1)
-```
 
 
 
