@@ -1,0 +1,3 @@
+useDynLib(scNorm3D, .registration=TRUE)
+importFrom(Rcpp, evalCpp)
+exportPattern("^[[:alpha:]]+")
