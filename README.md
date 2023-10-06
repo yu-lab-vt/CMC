@@ -7,12 +7,13 @@ The CMC model was applied to jointly infer these three factors and then to norma
 
 
 # Cell/gene/cDNA-length factors
+<!--
 Cell factors: (such as cell’s library size that will directly impact the total counts of the cell)
 
 Gene factors: (such as GC content of the gene’s sequence that may impact the efficiency of PCR amplification)
 
 cDNA-length factor:
-
+-->
 
 
 The raw count of single-cell RNA-seq (scRNA-seq) data impacted by artificial factors, including the cell factor (such as cell’s library size that will directly impact the total counts of the cell) and the gene factor (such as GC content of the gene’s sequence that may impact the efficiency of PCR amplification). 
