@@ -146,7 +146,7 @@ In this application, the CMC model is used to accurately estimate the gene-level
 </p>
 
 
-<!--
+
 # Installation
 
 ==== R ====
@@ -154,14 +154,32 @@ In this application, the CMC model is used to accurately estimate the gene-level
 library(devtools)
 devtools::install_github("yu-lab-vt/CMC")
 ```
--->
 
-<!--
 # Example usage
 
+```
 library(CMC)
 
--->
+# Create the random 2D tensor
+x_dim <- 50
+y_dim <- 60
+tensor <- array(runif(x_dim * y_dim), dim = c(x_dim, y_dim))
+
+# (Optional) Randomly set 20% items as missing values
+random_values <- sample(c(0, 1), x_dim * y_dim, replace = TRUE, prob = c(0.2, 0.8))
+item_used_random <- array(random_values, dim = c(x_dim, y_dim))
+
+# CMC model
+res <- CMC(tensor,Y = 1, items_used = item_used_random)
+
+# The probability distribution
+P <- res$P
+
+# A list storing the strength of each factor's impact
+rA <- res$rA
+```
+
+
 
 
 
