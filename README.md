@@ -193,6 +193,15 @@ Z. Cheng, S. Wei and G. Yu, "[A Single-Cell-Resolution Quantitative Metric of Si
 
 
 ```
+@article{cheng2024efficient,
+  title={An Efficient and Principled Model to Jointly Learn the Agnostic and Multifactorial Effect in Large-Scale Biological Data},
+  author={Cheng, Zuolin and Wei, Songtao and Wang, Yinxue and Wang, Yizhi and Lu, Richard and Wang, Yue and Yu, Guoqiang},
+  journal={bioRxiv},
+  pages={2024--04},
+  year={2024},
+  publisher={Cold Spring Harbor Laboratory}
+}
+
 @inproceedings{TySim,
   title={A Single-Cell-Resolution Quantitative Metric of Similarity to a Target Cell Type for scRNA-seq Data},
   author={Cheng, Zuolin and Wei, Songtao and Yu, Guoqiang},
@@ -226,4 +235,3 @@ Z. Cheng, S. Wei and G. Yu, "[A Single-Cell-Resolution Quantitative Metric of Si
 [9]	T. Masuda, R. Sankowski, O. Staszewski, and M. Prinz, “Microglia heterogeneity in the single-cell era,” Cell reports, vol. 30, no. 5, pp. 1271-1281, 2020.
 
 [10]	T. R. Hammond, C. Dufort, L. Dissing-Olesen, S. Giera, A. Young, A. Wysoker et al., “Single-cell RNA sequencing of microglia throughout the mouse lifespan and in the injured brain reveals complex cell-state changes,” Immunity, vol. 50, no. 1, pp. 253-271. e6, 2019.
-
