@@ -63,6 +63,8 @@ To the best of our knowledge, TySim is the first quantitative metric of similari
 
 # Example applications of CMC
 ## 1) Application 1: driving transcription factor (TF) identification
+https://github.com/yu-lab-vt/CMC/tree/CMC-DrivingTFDetection
+
 This application is to identify the TFs that are responsible for the transcription change of biological processes or diseases. In this application, CMC is applied to systematically models both the gene and TF heterogeneity in binding affinities, and achieves a more powerful detection results.
 
 #### Results on 49 benchmark datasets [1]
@@ -91,6 +93,7 @@ The raw count of single-cell RNA-seq (scRNA-seq) data impacted by artificial fac
 </p>
 
 ## Application 3: cancer-associated gene identification
+https://github.com/yu-lab-vt/CMC/tree/CMC-CancerGeneFinder
 
 <p align="center">
   <img src="img/Fig_CaseStudy_CancerGene.png" alt="Alt Text" style="width:90%;">
@@ -98,6 +101,7 @@ The raw count of single-cell RNA-seq (scRNA-seq) data impacted by artificial fac
 
 
 ## Application 4: quantification of single-cell-level similarity (TySim)
+https://github.com/yu-lab-vt/CMC/tree/CMC-TySim
 
 TySim is a quantitative metric of single-cell-to-target-cell-type similarity, on the basis of scRNA-seq data and the signatures or differentially expressed gene (DEG) list of the target cell type. In other words, it quantifies to what level each single cell is similar to the target cell type. 
 
@@ -130,6 +134,7 @@ TySim carefully considers the background expression level of each gene in each c
 
 
 ## Application 5: GO term activity transformation
+https://github.com/yu-lab-vt/CMC/tree/CMC-GOTermActivity
 
 It's a model to transform the scRNA-seq dataset into GO term activity score. The GO term activity score matrix represents the activity level of each GO term (i.e., biological process) in each cell. Comparing with the scRNA-seq data, the activity score is expected to be more reliable and more sensitive to cell heterogeneity.
 
