@@ -213,6 +213,10 @@ Z. Cheng, S. Wei and G. Yu, "[A Single-Cell-Resolution Quantitative Metric of Si
 ```
 
 
+# Contact us
+
+If you need any assistance with running the packages, please contact songtaow@vt.edu or zuolin8@vt.edu
+
 
 # Reference
 
