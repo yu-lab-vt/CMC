@@ -64,70 +64,28 @@ dataNorm <- scNorm3D(file\_Exp, file\_cDNA\_Length)
 ```
 
 
-
-<!--
-# How it work?
-
-**Input**: (1) scRNA-seq data to be tested; (2) Signatures of target cell type. <br>
-**Output**: Similarity level of each single cell to the target cell type (p-value & similarity score)
-
-A cell is believed to be similar to a target cell type at the transcriptional level if it statistically significantly highly expresses the signatures of the target cell type than expected by random. Given the inputs, TySim performs statistical test to access the similarity levels.
-
-
-
-# Case studies
-### 1) TySim confirms that Proliferative-region-associated microglia (PAM) is similar to disease-associated microglia (DAM) 
-
-<br>
-
-
-<p align="center">
-  <img src="img/Fig_CaseStudy_PAMtoDAM.png" alt="Alt Text" style="width:100%;">
-</p>
-
-
-### 2) TySim reveals cell type neglected by clustering due to small group size 
-
-<br>
-<p align="center">
-  <img src="img/Fig_CaseStudy_Ms4a7_like_cells.png" alt="Alt Text" style="width:100%;">
-</p>
-
-<div style="height: 5px;"></div>
-
-### 3) TySim enables the identification of cell type that was not discovered due to contamination in scRNA-seq data
-
-<br>
-<p align="center">
-  <img src="img/Fig_CaseStudy_COP_2.png" alt="Alt Text" style="width:85%;">
-</p>
-
-<div style="height: 5px;"></div>
-
-
-
-
-
-
-
 # Cite
 
 Please cite our paper if you find the code useful for your research.
 
-Z. Cheng, S. Wei and G. Yu, "[A Single-Cell-Resolution Quantitative Metric of Similarity to a Target Cell Type for scRNA-seq Data](https://ieeexplore.ieee.org/abstract/document/9995574)," 2022 IEEE International Conference on Bioinformatics and Biomedicine (BIBM), Las Vegas, NV, USA, 2022, pp. 2824-2831, doi: 10.1109/BIBM55620.2022.9995574.
+Zuolin Cheng, Songtao Wei, Yinxue Wang, Yizhi Wang, Richard Lu, Yue Wang, Guoqiang Yu， "[An Efficient and Principled Model to Jointly Learn the Agnostic and Multifactorial Effect in Large-Scale Biological Data](https://www.biorxiv.org/content/10.1101/2024.04.12.589306v1)," bioRxiv 2024.04.12.589306; doi: https://doi.org/10.1101/2024.04.12.589306
 
 
 ```
-@inproceedings{TySim,
-  title={A Single-Cell-Resolution Quantitative Metric of Similarity to a Target Cell Type for scRNA-seq Data},
-  author={Cheng, Zuolin and Wei, Songtao and Yu, Guoqiang},
-  booktitle={2022 IEEE International Conference on Bioinformatics and Biomedicine (BIBM)},
-  pages={2824--2831},
-  year={2022},
-  organization={IEEE}
+@article{cheng2024efficient,
+  title={An Efficient and Principled Model to Jointly Learn the Agnostic and Multifactorial Effect in Large-Scale Biological Data},
+  author={Cheng, Zuolin and Wei, Songtao and Wang, Yinxue and Wang, Yizhi and Lu, Richard and Wang, Yue and Yu, Guoqiang},
+  journal={bioRxiv},
+  pages={2024--04},
+  year={2024},
+  publisher={Cold Spring Harbor Laboratory}
 }
 ```
--->
+
+# Contact us
+
+If you need any assistance with running the packages, please contact songtaow@vt.edu or zuolin8@vt.edu
+
 
 
 # Reference
