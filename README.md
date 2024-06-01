@@ -75,7 +75,7 @@ In each dataset, targeted TF was perturbed and DEGs were detected. We feed the D
   <img src="img/Fig_DrivingTF_result_benchmarks.png" alt="Alt Text" style="width:85%;">
 </p>
 
-#### Results on glial progenitor development study ![image](https://github.com/yu-lab-vt/CMC/assets/20603402/2418cf9c-bc41-4595-95ed-ce41f997618e) [2]
+#### Results on glial progenitor development study [2]
 Successfully identified Zfp36l1 as a critical regulator for oligodendrocyteastrocyte lineage transition and glioma growth [2].
 
 <p align="center">
