@@ -120,7 +120,7 @@ GenePlot(GO_analysis_example, Gene_list = c("C1ql1", "Tmsb4x", "Ppp1r14b", "Rpl1
 
 Please cite our paper if you find the code useful for your research.
 
-Zuolin Cheng, Songtao Wei, Yinxue Wang, Yizhi Wang, Richard Lu, Yue Wang, Guoqiang Yu， "[An Efficient and Principled Model to Jointly Learn the Agnostic and Multifactorial Effect in Large-Scale Biological Data](https://www.biorxiv.org/content/10.1101/2024.04.12.589306v1)," bioRxiv 2024.04.12.589306; doi: https://doi.org/10.1101/2024.04.12.589306
+Zuolin Cheng, Songtao Wei, Yinxue Wang, Yizhi Wang, Richard Lu, Yue Wang, Guoqiang Yu， "[An Efficient and Principled Model to Jointly Learn the Agnostic and Multifactorial Effect in Large-Scale Biological Data](https://www.biorxiv.org/content/10.1101/2024.04.12.589306v1.full.pdf)," bioRxiv 2024.04.12.589306; doi: https://doi.org/10.1101/2024.04.12.589306
 
 
 ```
